@@ -35,7 +35,7 @@ const TaskCarousel = () => {
       } else if (activeButton === "prev" && prevButtonRef.current?.disabled) {
         setActiveButton("next");
       }
-    }, 4000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [activeButton]);
@@ -91,7 +91,7 @@ const TaskCarousel = () => {
         <CarouselContent className="flex items-center p-0">
           {tasks.map((task, index) => (
             <CarouselItem key={index}>
-              <TaskCard task={task} />
+              <TaskCard className="shadow-md h-fit w-[300px] p-0" task={task} />
             </CarouselItem>
           ))}
         </CarouselContent>

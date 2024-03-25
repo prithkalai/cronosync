@@ -13,6 +13,9 @@ const Layout = ({ children }: Props) => {
         <ModeToggle />
       </div>
       {children}
+      <div className="fixed top-4 left-4">
+        <h1 className="font-bold">CronoSync</h1>
+      </div>
     </div>
   );
 };

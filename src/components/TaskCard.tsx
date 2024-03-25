@@ -19,9 +19,10 @@ interface Props {
     currentTime: string;
     endTime: string;
   };
+  className: string;
 }
 
-const TaskCard = ({ task }: Props) => {
+const TaskCard = ({ task, className }: Props) => {
   const { startUnit, endUnit, currUnit, unitString } = calculateTimeScale(
     task.startTime,
     task.endTime,
@@ -29,10 +30,12 @@ const TaskCard = ({ task }: Props) => {
   );
 
   return (
-    <Card className="shadow-md h-fit w-[300px] p-0">
+    <Card className={className}>
       <CardHeader className="p-0">
         <div className="pl-6 pt-6 pr-6">
-          <CardTitle className="text-3xl">{task.taskData}</CardTitle>
+          <CardTitle className="text-3xl font-normal">
+            {task.taskData}
+          </CardTitle>
           <CardDescription>
             <p className="w-fit">
               Every {endUnit} {unitString}
@@ -42,8 +45,8 @@ const TaskCard = ({ task }: Props) => {
       </CardHeader>
       <CardContent className="flex items-center justify-center p-0">
         <CircularProgressbarWithChildren
-          className="size-[200px] pl-4 pr-4 flex items-center"
-          strokeWidth={8}
+          className="size-[170px] pl-4 pr-4 flex items-center"
+          strokeWidth={6}
           value={currUnit}
           minValue={startUnit}
           maxValue={endUnit}
