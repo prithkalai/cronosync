@@ -14,9 +14,13 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { GrPowerReset } from "react-icons/gr";
 
 const TaskCarousel = () => {
   const nextButtonRef = useRef<HTMLButtonElement>(null);
@@ -55,8 +59,7 @@ const TaskCarousel = () => {
       taskData: "Scratch Nose",
       startTime: "2024-01-01T00:00:00Z",
       endTime: "2024-01-01T00:00:30Z",
-      currentTime: "2024-01-01T00:00:19Z",
-      unit: "second(s)",
+      currentTime: "2024-01-01T00:00:15Z",
     },
     {
       taskData: "Study Break",
@@ -94,6 +97,105 @@ const TaskCarousel = () => {
       unit: "year(s)",
     },
   ];
+
+  // const tasks = [
+  //   {
+  //     taskData: "Scratch Nose",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T00:00:30Z",
+  //     currentTime: "2024-01-01T00:00:15Z",
+  //   },
+  //   {
+  //     taskData: "Blink Eyes",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T00:00:20Z",
+  //     currentTime: "2024-01-01T00:00:10Z",
+  //   },
+  //   {
+  //     taskData: "Check Phone",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T00:05:00Z",
+  //     currentTime: "2024-01-01T00:02:30Z",
+  //   },
+  //   {
+  //     taskData: "Take Sips of Water",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T00:30:00Z",
+  //     currentTime: "2024-01-01T00:15:00Z",
+  //   },
+  //   {
+  //     taskData: "Stretch Legs",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T01:00:00Z",
+  //     currentTime: "2024-01-01T00:30:00Z",
+  //   },
+  //   {
+  //     taskData: "Study Break",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T00:45:00Z",
+  //     currentTime: "2024-01-01T00:22:30Z",
+  //   },
+  //   {
+  //     taskData: "Adjust Seating Position",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T02:00:00Z",
+  //     currentTime: "2024-01-01T01:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Glance Out the Window",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T03:00:00Z",
+  //     currentTime: "2024-01-01T01:30:00Z",
+  //   },
+  //   {
+  //     taskData: "Take Nyquil",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T12:00:00Z",
+  //     currentTime: "2024-01-01T06:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Snack Time",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T04:00:00Z",
+  //     currentTime: "2024-01-01T02:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Walk Around",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T06:00:00Z",
+  //     currentTime: "2024-01-01T03:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Quick Meditation",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-01T08:00:00Z",
+  //     currentTime: "2024-01-01T04:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Oil Hair",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-11T00:00:00Z",
+  //     currentTime: "2024-01-06T00:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Trim Nails",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-01-15T00:00:00Z",
+  //     currentTime: "2024-01-08T00:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Change Toothbrush",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2024-04-01T00:00:00Z",
+  //     currentTime: "2024-02-15T00:00:00Z",
+  //   },
+  //   {
+  //     taskData: "Dental Appointment",
+  //     startTime: "2024-01-01T00:00:00Z",
+  //     endTime: "2027-01-01T00:00:00Z",
+  //     currentTime: "2025-05-09T16:00:56Z",
+  //   },
+  // ];
 
   return (
     <div className="w-[500px] h-fit flex justify-center">
@@ -149,6 +251,16 @@ const TaskCarousel = () => {
                       </div>
                     </CircularProgressbarWithChildren>
                   </CardContent>
+                  <CardFooter className="p-0">
+                    <div className="w-full flex justify-between gap-1 mb-1">
+                      <Button variant="ghost" className="p-1 pl-2 pr-2 ml-2">
+                        <RiDeleteBinLine className="text-lg" />
+                      </Button>
+                      <Button variant="ghost" className="p-1 pl-2 pr-2 mr-2">
+                        <GrPowerReset className="text-lg" />
+                      </Button>
+                    </div>
+                  </CardFooter>
                 </Card>
               </CarouselItem>
             );

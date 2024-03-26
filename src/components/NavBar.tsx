@@ -35,7 +35,7 @@ const NavBar = () => {
         <h1 className="font-bold text-2xl">CronoSync</h1>
       </div>
       <div className="flex items-center gap-2">
-        <text className="mr-2 text-sm">{userEmail}</text>
+        <p className="mr-2 text-sm">{userEmail}</p>
         <ModeToggle />
         <Button onClick={onLogout} disabled={!token}>
           Logout

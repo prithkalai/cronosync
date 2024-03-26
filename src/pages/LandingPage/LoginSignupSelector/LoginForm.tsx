@@ -1,4 +1,4 @@
-import ButtonLoading from "../ButtonLoading";
+import ButtonLoading from "../../../components/ButtonLoading";
 import { Button } from "@/components/ui/button";
 import {
   Card,

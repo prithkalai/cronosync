@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../../components/ui/card";
 import { GrPowerReset } from "react-icons/gr";
 import { RiDeleteBinLine } from "react-icons/ri";
 import {
@@ -13,9 +13,9 @@ import {
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Button } from "./ui/button";
+import { Button } from "../../components/ui/button";
 import apiClient from "@/services/api-client";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../../components/ui/use-toast";
 import { Task } from "@/pages/DashBoard";
 
 interface Props {

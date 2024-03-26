@@ -1,6 +1,6 @@
-import HeadLine from "../components/HeadLine";
-import LoginSignupSelector from "../components/LoginSignupSelector";
-import TaskCarousel from "../components/TaskCarousel";
+import HeadLine from "../../components/HeadLine";
+import LoginSignupSelector from "./LoginSignupSelector";
+import TaskCarousel from "./TaskCarousel";
 
 const LandingPage = () => {
   return (

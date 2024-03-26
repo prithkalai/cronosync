@@ -1,3 +1,4 @@
+import { Category } from "@/pages/DashBoard";
 import axios from "axios";
 import { apiBaseURL } from "./api-guest";
 
@@ -23,10 +24,11 @@ class APIClient {
       }
     );
   }
-  addTasks = (taskData: string, interval: string) => {
+  addTasks = (taskData: string, interval: string, category: Category) => {
     return AxiosInstance.post("", {
       taskData: taskData,
       interval: interval,
+      category: category,
     });
   };
 
@@ -44,6 +46,20 @@ class APIClient {
 
   userInfo = () => {
     return AxiosInstance.get(`${apiBaseURL}/api/users/me`, { baseURL: "" });
+  };
+
+  getCategory = () => {
+    return AxiosInstance.get(`${apiBaseURL}/api/category`, { baseURL: "" });
+  };
+
+  addCategory = (title: string) => {
+    return AxiosInstance.post(
+      `${apiBaseURL}/api/category`,
+      {
+        title: title,
+      },
+      { baseURL: "" }
+    );
   };
 }
 

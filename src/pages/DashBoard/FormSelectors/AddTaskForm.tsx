@@ -24,21 +24,21 @@ import {
 } from "@/components/ui/select";
 
 import { Input } from "@/components/ui/input";
-import { Controller } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
+import { Category, Task } from "..";
+import apiClient from "@/services/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import ButtonLoading from "./ButtonLoading";
-import apiClient from "@/services/api-client";
-import { Task } from "@/pages/DashBoard";
+import ButtonLoading from "../../../components/ButtonLoading";
 
 interface Props {
   handleSubmit: (task: Task) => void;
+  category: Category[];
 }
 
-const AddTaskForm = ({ handleSubmit }: Props) => {
+const AddTaskForm = ({ handleSubmit, category }: Props) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const formSchema = z.object({
@@ -52,6 +52,7 @@ const AddTaskForm = ({ handleSubmit }: Props) => {
       "minutes",
       "seconds",
     ]),
+    category: z.string().min(3, "Category is required"),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,15 +61,18 @@ const AddTaskForm = ({ handleSubmit }: Props) => {
       taskData: "",
       interval: "",
       intervalType: undefined,
+      category: "",
     },
   });
 
   function onSubmit(formData: z.infer<typeof formSchema>) {
     setLoading(true);
+    const index = category.findIndex((cat) => cat._id === formData.category);
     apiClient
       .addTasks(
         formData.taskData,
-        `${formData.interval} ${formData.intervalType}`
+        `${formData.interval} ${formData.intervalType}`,
+        { _id: category[index]._id, title: category[index].title }
       )
       .then((res) => {
         setLoading(false);
@@ -88,8 +92,9 @@ const AddTaskForm = ({ handleSubmit }: Props) => {
         });
         console.log(err);
       });
+
     console.log(
-      `{ title: ${formData.taskData}, interval: ${formData.interval} ${formData.intervalType} }`
+      `{ title: ${formData.taskData}, interval: ${formData.interval} ${formData.intervalType}, category: { _id: ${category[index]._id}, title: ${category[index].title} }`
     );
   }
 
@@ -116,7 +121,10 @@ const AddTaskForm = ({ handleSubmit }: Props) => {
                       <FormLabel>Title</FormLabel>
                       <FormControl>
                         <Input type="text" {...field} />
-                      </FormControl>
+                      </FormControl>{" "}
+                      <FormDescription>
+                        Keep it short and simple.
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -173,6 +181,33 @@ const AddTaskForm = ({ handleSubmit }: Props) => {
                       <FormDescription>
                         Enter the duration between which a reminder should be
                         sent.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <FormControl>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select a Category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {category.map((cat, index) => (
+                              <SelectItem key={index} value={cat._id}>
+                                {cat.title}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>{" "}
+                      <FormDescription>
+                        Keep it short and simple.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

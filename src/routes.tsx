@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout";
-import DashBoard from "./pages/DashBoard";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import PrivateRoutes from "./pages/PrivateRoutes";
+import DashBoardIndex from "./pages/DashBoard";
 
 const router = createBrowserRouter([
   { path: "/", element: <Layout children={<LandingPage />} /> },
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Layout children={<DashBoard />} />,
+        element: <Layout children={<DashBoardIndex />} />,
       },
     ],
   },

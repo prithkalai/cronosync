@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { useToast } from "../ui/use-toast";
+import { useToast } from "../../../components/ui/use-toast";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
