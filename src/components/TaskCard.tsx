@@ -2,32 +2,85 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
-
+import { GrPowerReset } from "react-icons/gr";
+import { RiDeleteBinLine } from "react-icons/ri";
 import {
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { Button } from "./ui/button";
+import apiClient from "@/services/apiClient";
+import { useToast } from "./ui/use-toast";
+import { Task } from "@/pages/DashBoard";
 
 interface Props {
-  task: {
-    taskData: string;
-    startTime: string;
-    currentTime: string;
-    endTime: string;
-  };
+  task: Task;
+  currentTime: string;
   className: string;
+  handleReset: (newTask: Task) => void;
+  handleDelete: (task: Task) => void;
 }
 
-const TaskCard = ({ task, className }: Props) => {
+const TaskCard = ({
+  task,
+  currentTime,
+  className,
+  handleReset,
+  handleDelete,
+}: Props) => {
+  const { toast } = useToast();
   const { startUnit, endUnit, currUnit, unitString } = calculateTimeScale(
     task.startTime,
     task.endTime,
-    task.currentTime
+    currentTime
   );
+
+  const onReset = (id: string) => {
+    console.log(id);
+
+    apiClient
+      .reset(id)
+      .then((res) => {
+        toast({
+          title: "Success",
+          description: "The task was reset.",
+        });
+        handleReset(res.data.data);
+      })
+      .catch((err) => {
+        toast({
+          variant: "destructive",
+          title: "Error Resetting Task",
+          description: "Please try again later",
+        });
+        console.log(err);
+      });
+  };
+
+  const onDelete = (id: string) => {
+    apiClient
+      .delete(id)
+      .then((res) => {
+        toast({
+          title: "Success",
+          description: "The task was deleted",
+        });
+        handleDelete(res.data.data);
+      })
+      .catch((err) => {
+        toast({
+          variant: "destructive",
+          title: "Error Resetting Task",
+          description: "Please try again later",
+        });
+        console.log(err);
+      });
+  };
 
   return (
     <Card className={className}>
@@ -57,22 +110,47 @@ const TaskCard = ({ task, className }: Props) => {
           })}
         >
           <div className=" flex flex-col w-fit h-fit items-center justify-end">
-            <span className="text-sm text-gray-400">Next In</span>
-            <span className="text-4xl font-semibold">{endUnit - currUnit}</span>
-            {/* <Separator /> */}
+            {currentTime > task.endTime ? (
+              <span className="text-4xl font-semibold">Now</span>
+            ) : (
+              <>
+                <span className="text-sm text-gray-400">Next In</span>
+                <span className="text-4xl font-semibold">
+                  {endUnit - currUnit}
+                </span>
+                {/* <Separator /> */}
 
-            <span className="text-sm text-gray-400 mt-1"></span>
-            <span className="text-xs text-gray-400">{unitString}</span>
+                <span className="text-sm text-gray-400 mt-1"></span>
+                <span className="text-xs text-gray-400">{unitString}</span>
+              </>
+            )}
           </div>
         </CircularProgressbarWithChildren>
       </CardContent>
+      <CardFooter className="p-0">
+        <div className="w-full flex justify-between gap-1 mb-1">
+          <Button variant="ghost" className="p-1 pl-2 pr-2 ml-2">
+            <RiDeleteBinLine
+              className="text-lg"
+              onClick={() => onDelete(task._id)}
+            />
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={() => onReset(task._id)}
+            className="p-1 pl-2 pr-2 mr-2"
+          >
+            <GrPowerReset className="text-lg" />
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 };
 
 export default TaskCard;
 
-function calculateTimeScale(
+export function calculateTimeScale(
   startTime: string,
   endTime: string,
   currentTime: string

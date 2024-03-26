@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const apiBaseURL = "http://localhost:3000";
+export const apiBaseURL = "http://localhost:3000";
 
-const AxiosInstance = axios.create({
-  baseURL: `${apiBaseURL}`,
+const LoginInstance = axios.create({
+  baseURL: `${apiBaseURL}/api/login`,
 });
 
 const SignUpInstance = axios.create({
@@ -12,7 +12,7 @@ const SignUpInstance = axios.create({
 
 class APIGuest {
   login = (email: string, password: string) => {
-    return AxiosInstance.post("", {
+    return LoginInstance.post("", {
       email: email,
       password: password,
     });

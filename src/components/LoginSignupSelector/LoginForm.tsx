@@ -16,7 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-//import { useToast } from "@/components/ui/use-toast";
+import apiGuest from "@/services/apiGuest";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,13 +27,13 @@ import { z } from "zod";
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  //const { toast } = useToast();
+  const { toast } = useToast();
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("cronoToken");
 
     if (token != undefined) {
-      navigate("/");
+      navigate("/dashboard");
     }
   }, []);
 
@@ -51,6 +52,32 @@ const LoginForm = () => {
 
   function onSubmit(formData: z.infer<typeof formSchema>) {
     setLoading(true);
+
+    apiGuest
+      .login(formData.email, formData.password)
+      .then((res) => {
+        setLoading(false);
+        toast({
+          title: "Logged In",
+          description: "Welcome to CronoSync. Happy Scheduling!",
+        });
+        console.log(res);
+
+        localStorage.setItem("cronoToken", res.data.token);
+        console.log();
+
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        toast({
+          variant: "destructive",
+          title: err.response ? err.response.data : err.message,
+          description: err.response ? err.message : "Server Not Reachable",
+        });
+        console.log(err);
+
+        setLoading(false);
+      });
 
     console.log(formData);
   }

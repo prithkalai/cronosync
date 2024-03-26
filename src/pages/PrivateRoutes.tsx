@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
-  // const token = localStorage.getItem("cronoToken");
+  const token = localStorage.getItem("cronoToken");
 
-  // if (!token) {
-  //   return <Navigate to="/" />;
-  // }
+  if (!token) {
+    return <Navigate to="/" />;
+  }
   return <Outlet />;
 };
 
