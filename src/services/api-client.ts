@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiBaseURL } from "./apiGuest";
+import { apiBaseURL } from "./api-guest";
 
 const AxiosInstance = axios.create({
   baseURL: `${apiBaseURL}/api/tasks`,
@@ -40,6 +40,10 @@ class APIClient {
 
   delete = (id: string) => {
     return AxiosInstance.delete(`/${id}`);
+  };
+
+  userInfo = () => {
+    return AxiosInstance.get(`${apiBaseURL}/api/users/me`, { baseURL: "" });
   };
 }
 

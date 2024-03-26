@@ -16,20 +16,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-//import { useToast } from "@/components/ui/use-toast";
+import apiGuest from "@/services/api-guest";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { useToast } from "../ui/use-toast";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  //const { toast } = useToast();
+  const { toast } = useToast();
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("cronoToken");
 
     if (token != undefined) {
       navigate("/");
@@ -55,6 +56,25 @@ const SignupForm = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setLoading(true);
+    apiGuest
+      .signup(formData.name, formData.email, formData.password)
+      .then((res) => {
+        localStorage.setItem("cronoToken", res.data.token);
+        setLoading(false);
+        toast({
+          title: "Created Account",
+          description: "Welcome to CronoSync. Happy Scheduling!",
+        });
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast({
+          variant: "destructive",
+          title: err.response ? err.response.data.message : err.message,
+          description: err.response ? err.message : "Server Not Reachable",
+        });
+      });
     console.log(formData);
   }
 

@@ -11,9 +11,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
-import apiClient from "@/services/apiClient";
+import apiClient from "@/services/api-client";
 import { useToast } from "@/components/ui/use-toast";
 import AddTaskForm from "@/components/AddTaskForm";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export interface Task {
   _id: string;
@@ -185,28 +193,74 @@ const DashBoard = () => {
   // FIXME: Fix the auto-scroll issue on dialog close
 
   return (
-    <div className="w-full max-w-[1500px] mx-auto">
-      <div className="flex mt-20 gap-2 justify-center ml-4 mr-4">
-        <div className="min-w-[150px]">
+    <div className="w-full max-w-[1500px] h-full mx-auto">
+      <div className="flex mt-6 gap-2 justify-center ml-4 mr-4">
+        {/* <div className="min-w-[150px] ">
           <h1 className="font-thin">Categories</h1>
-        </div>
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="w-full flex gap-4"
-          columnClassName="flex flex-col items-center gap-4"
-        >
-          {tasks.map((task, index) => (
-            <TaskCard
-              className="shadow-md h-fit w-full max-w-xs p-0"
-              key={index}
-              task={task}
-              currentTime={currentTime}
-              handleReset={handleReset}
-              handleDelete={handleDelete}
-            />
-          ))}
-          {}
-        </Masonry>
+        </div> */}
+        {/* <Separator orientation="vertical" className="h-screen" /> */}
+        {tasks.length == 0 ? (
+          <>
+            <div className="fixed bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2">
+              <Card className="min-w-[310px] shadow-xl">
+                <CardHeader>
+                  <CardTitle className="text-3xl">User Guide</CardTitle>
+                  <CardDescription>
+                    Please read this guide before using the app.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="w-full flex flex-col gap-5">
+                    <div>
+                      This app is designed to keep track of "Repetitive Tasks".
+                      <br />
+                      It is NOT your regular Todo list app.
+                      <CardDescription className="mt-2">
+                        {" "}
+                        eg: Oil Hair every 3 days, Wash Bed Sheets every 3
+                        months.{" "}
+                      </CardDescription>
+                    </div>
+
+                    <div>
+                      You can add tasks or categories using the + icon in the
+                      bottom right of the screen.
+                    </div>
+
+                    <div>
+                      While optional, it is recommended to add Categories as
+                      they help segregate your tasks into various sections for
+                      ease of viewing.
+                    </div>
+                    <div>
+                      When the duration of a task is completed, you will be
+                      reminded via email and on the app.
+                    </div>
+                    <div>Happy Scheduling!</div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </>
+        ) : (
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="w-full flex gap-4"
+            columnClassName="flex flex-col items-center gap-4"
+          >
+            {tasks.map((task, index) => (
+              <TaskCard
+                className="shadow-md h-fit w-full max-w-xs p-0"
+                key={index}
+                task={task}
+                currentTime={currentTime}
+                handleReset={handleReset}
+                handleDelete={handleDelete}
+              />
+            ))}
+            {}
+          </Masonry>
+        )}
       </div>
       <Dialog>
         <DialogTrigger>

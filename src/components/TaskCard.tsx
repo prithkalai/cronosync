@@ -14,7 +14,7 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Button } from "./ui/button";
-import apiClient from "@/services/apiClient";
+import apiClient from "@/services/api-client";
 import { useToast } from "./ui/use-toast";
 import { Task } from "@/pages/DashBoard";
 
@@ -118,8 +118,6 @@ const TaskCard = ({
                 <span className="text-4xl font-semibold">
                   {endUnit - currUnit}
                 </span>
-                {/* <Separator /> */}
-
                 <span className="text-sm text-gray-400 mt-1"></span>
                 <span className="text-xs text-gray-400">{unitString}</span>
               </>

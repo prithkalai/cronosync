@@ -31,7 +31,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import ButtonLoading from "./ButtonLoading";
-import apiClient from "@/services/apiClient";
+import apiClient from "@/services/api-client";
 import { Task } from "@/pages/DashBoard";
 
 interface Props {
