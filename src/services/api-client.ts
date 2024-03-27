@@ -61,6 +61,15 @@ class APIClient {
       { baseURL: "" }
     );
   };
+
+  deleteCategory = (id: string, uncategorizedId: string) => {
+    return AxiosInstance.delete(
+      `${apiBaseURL}/api/category/${id}/${uncategorizedId}`,
+      {
+        baseURL: "",
+      }
+    );
+  };
 }
 
 export default new APIClient();

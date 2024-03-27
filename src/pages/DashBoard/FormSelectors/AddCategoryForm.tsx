@@ -92,7 +92,7 @@ const AddCategoryForm = ({ handleAddCategory }: Props) => {
                         <Input type="text" {...field} />
                       </FormControl>{" "}
                       <FormDescription>
-                        Keep it short and simple.
+                        Choose a short and easy name.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

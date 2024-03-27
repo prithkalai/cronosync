@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 interface Props {
   tasks: Task[];
+  category: Category[];
   currCategory: string;
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   setDisplayTasks: React.Dispatch<React.SetStateAction<Task[]>>;
@@ -11,6 +12,7 @@ interface Props {
 
 export const useHandleData = ({
   tasks,
+  category,
   currCategory,
   setDisplayTasks,
   setTasks,
@@ -50,9 +52,19 @@ export const useHandleData = ({
     // displayTasks will be automatically updated via useEffect
   };
 
-  const handleAddCategory = (category: Category) => {
-    setCategory((prev) => [...prev, category]);
+  const handleAddCategory = (newCategory: Category) => {
+    setCategory((prev) => [...prev, newCategory]);
   };
 
-  return { handleReset, handleDelete, handleSubmit, handleAddCategory };
+  const handleDeleteCategory = (deletedCategory: Category) => {
+    setCategory(category.filter((cat) => cat._id !== deletedCategory._id));
+  };
+
+  return {
+    handleReset,
+    handleDelete,
+    handleSubmit,
+    handleAddCategory,
+    handleDeleteCategory,
+  };
 };

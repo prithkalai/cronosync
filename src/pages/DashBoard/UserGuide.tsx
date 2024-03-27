@@ -6,9 +6,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const UserGuide = () => {
+interface Props {
+  className?: string;
+}
+
+const UserGuide = ({ className }: Props) => {
   return (
-    <div className="fixed bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2">
+    <div className={className}>
       <Card className="min-w-[310px] shadow-xl">
         <CardHeader>
           <CardTitle className="text-3xl">User Guide</CardTitle>

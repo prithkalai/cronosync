@@ -27,14 +27,20 @@ const DashBoard = ({ currentTime }: Props) => {
   const [displayTasks, setDisplayTasks] = useState<Task[]>([]);
   const [category, setCategory] = useState<Category[]>([]);
   const [currCategory, setCurrCategory] = useState<string>("");
-  const { handleDelete, handleReset, handleSubmit, handleAddCategory } =
-    useHandleData({
-      tasks,
-      currCategory,
-      setDisplayTasks,
-      setTasks,
-      setCategory,
-    });
+  const {
+    handleDelete,
+    handleReset,
+    handleSubmit,
+    handleAddCategory,
+    handleDeleteCategory,
+  } = useHandleData({
+    tasks,
+    category,
+    currCategory,
+    setDisplayTasks,
+    setTasks,
+    setCategory,
+  });
 
   useFetchInitialData({
     setTasks: setTasks,
@@ -57,7 +63,7 @@ const DashBoard = ({ currentTime }: Props) => {
     <div className="w-full max-w-[1500px] h-full mx-auto">
       <div className="flex flex-col mt-6 gap-2 justify-center ml-4 mr-4">
         {tasks.length == 0 ? (
-          <UserGuide />
+          <UserGuide className="fixed bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2" />
         ) : (
           <>
             <Selector category={category} setCurrCategory={setCurrCategory} />
@@ -97,6 +103,7 @@ const DashBoard = ({ currentTime }: Props) => {
           </DialogHeader>
           <div className="w-full flex justify-center">
             <FormSelectors
+              handleDeleteCategory={handleDeleteCategory}
               handleAddCategory={handleAddCategory}
               category={category}
               handleSubmit={handleSubmit}

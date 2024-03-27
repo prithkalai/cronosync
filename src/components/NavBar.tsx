@@ -1,10 +1,13 @@
+import UserGuide from "@/pages/DashBoard/UserGuide";
+import apiClient from "@/services/api-client";
+import { useEffect, useState } from "react";
+import { FaInfo } from "react-icons/fa6";
+import { SiReact } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { ModeToggle } from "./DarkModeToggle/mode-toggle";
 import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
-import apiClient from "@/services/api-client";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { useToast } from "./ui/use-toast";
-import { SiReact } from "react-icons/si";
 
 const NavBar = () => {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -37,6 +40,17 @@ const NavBar = () => {
       <div className="flex items-center gap-2">
         <p className="mr-2 text-sm">{userEmail}</p>
         <ModeToggle />
+        <Dialog>
+          <DialogTrigger>
+            <Button className="p-3">
+              <FaInfo />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <UserGuide />
+          </DialogContent>
+        </Dialog>
+
         <Button onClick={onLogout} disabled={!token}>
           Logout
         </Button>

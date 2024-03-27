@@ -207,7 +207,7 @@ const AddTaskForm = ({ handleSubmit, category }: Props) => {
                         </Select>
                       </FormControl>{" "}
                       <FormDescription>
-                        Keep it short and simple.
+                        It is recommended to categorize tasks.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

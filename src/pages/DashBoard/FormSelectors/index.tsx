@@ -2,17 +2,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Category, Task } from "..";
 import AddTaskForm from "./AddTaskForm";
 import AddCategoryForm from "./AddCategoryForm";
+import DeleteCategoryForm from "./DeleteCategoryForm";
 
 interface Props {
   handleSubmit: (task: Task) => void;
   category: Category[];
   handleAddCategory: (category: Category) => void;
+  handleDeleteCategory: (category: Category) => void;
 }
 
 const FormSelectors = ({
   handleSubmit,
   category,
   handleAddCategory,
+  handleDeleteCategory,
 }: Props) => {
   return (
     <Tabs defaultValue="createTask" className="w-fit">
@@ -27,7 +30,12 @@ const FormSelectors = ({
       <TabsContent value="createCategory">
         <AddCategoryForm handleAddCategory={handleAddCategory} />
       </TabsContent>
-      <TabsContent value="deleteCategory">Delete a Category</TabsContent>
+      <TabsContent value="deleteCategory">
+        <DeleteCategoryForm
+          handleDeleteCategory={handleDeleteCategory}
+          category={category}
+        />
+      </TabsContent>
     </Tabs>
   );
 };
