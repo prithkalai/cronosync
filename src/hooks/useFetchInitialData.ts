@@ -14,7 +14,6 @@ export const useFetchInitialData = ({
   setTasks,
   setDisplayTasks,
   setCategory,
-  setCurrCategory,
 }: Props) => {
   const { toast } = useToast();
 
