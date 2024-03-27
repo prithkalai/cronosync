@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const apiBaseURL = "http://localhost:3000";
+export const apiBaseURL = "https://cronosync-backend-production.up.railway.app";
 
 const LoginInstance = axios.create({
   baseURL: `${apiBaseURL}/api/login`,

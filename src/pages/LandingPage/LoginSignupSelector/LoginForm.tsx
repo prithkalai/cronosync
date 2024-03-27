@@ -71,7 +71,9 @@ const LoginForm = () => {
       .catch((err) => {
         toast({
           variant: "destructive",
-          title: err.response ? err.response.data : err.message,
+          title: err.response
+            ? JSON.stringify(err.response.data.message)
+            : err.message,
           description: err.response ? err.message : "Server Not Reachable",
         });
         console.log(err);

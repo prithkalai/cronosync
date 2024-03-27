@@ -71,7 +71,9 @@ const SignupForm = () => {
         setLoading(false);
         toast({
           variant: "destructive",
-          title: err.response ? err.response.data.message : err.message,
+          title: err.response
+            ? JSON.stringify(err.response.data.message)
+            : err.message,
           description: err.response ? err.message : "Server Not Reachable",
         });
       });
