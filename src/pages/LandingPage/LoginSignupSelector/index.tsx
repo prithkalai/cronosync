@@ -4,7 +4,7 @@ import SignupForm from "./SignupForm";
 
 const LoginSignupSelector = () => {
   return (
-    <Tabs defaultValue="login" className="w-fit">
+    <Tabs defaultValue="login" className="w-fit ">
       <TabsList>
         <TabsTrigger value="login">Login to existing Account</TabsTrigger>
         <TabsTrigger value="signup">Create a new Account</TabsTrigger>

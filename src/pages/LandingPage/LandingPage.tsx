@@ -9,10 +9,13 @@ const LandingPage = () => {
         <div className="h-[50px] lg:hidden"></div>
         <HeadLine />
         <TaskCarousel />
+        <div className="h-10"></div>
       </div>
-      <div className="w-full flex items-center justify-center lg:justify-end xl:justify-center">
+      <div className="w-full flex flex-col items-center justify-center lg:justify-end xl:justify-center">
         <LoginSignupSelector />
+        <div className="h-24"></div>
       </div>
+
       <div className="h-[50px] lg:hidden"></div>
     </div>
   );

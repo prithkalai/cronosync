@@ -286,7 +286,7 @@ function calculateTimeScale(
 
   // Calculate differences in milliseconds
   const totalDiff = end.getTime() - start.getTime();
-  const currentDiff = current.getTime() - current.getTime();
+  const currentDiff = current.getTime() - start.getTime();
 
   // Determine the unit and calculate the differences in that unit
   let unitString:
