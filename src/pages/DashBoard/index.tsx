@@ -16,6 +16,9 @@ export interface Category {
 }
 
 const DashBoardIndex = () => {
+  const [currentTime, setCurrentTime] = useState<string>(
+    new Date().toISOString()
+  );
   useEffect(() => {
     // Set up an interval that updates the currentTime state every second
     const interval = setInterval(() => {
@@ -26,9 +29,6 @@ const DashBoardIndex = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const [currentTime, setCurrentTime] = useState<string>(
-    new Date().toISOString()
-  );
   return <DashBoard currentTime={currentTime} />;
 };
 
