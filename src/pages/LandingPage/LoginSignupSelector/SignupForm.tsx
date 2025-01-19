@@ -33,7 +33,7 @@ const SignupForm = () => {
     const token = localStorage.getItem("cronoToken");
 
     if (token != undefined) {
-      navigate("/");
+      navigate("/dashboard");
     }
   }, []);
 
